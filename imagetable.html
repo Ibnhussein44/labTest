@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Image Table</title>
+</head>
+<body>
+    <h1>Images</h1>
+    <div id="error" class="error"></div>      
+    <form id="imageForm" onsubmit="return displayImages()">
+        <label for="imageCount">Enter number of image:</label>
+        <input type="text" id="imageCount" value="4">
+        <button type="submit">displayImages</button>
+    </form>
+    <table id="imageTable"></table>
+
+    <script>
+        const images = [
+            'book5.jpg',
+            'book6.jpg',
+            'book7.jpg',
+            'book8.jpg',
+        ];
+
+        function displayImages() {
+            const imageCount = document.getElementById('imageCount').value;
+            const errorDiv = document.getElementById('error');
+            const imageTable = document.getElementById('imageTable');
+
+            errorDiv.textContent = '';
+            imageTable.innerHTML = '';
+
+            const count = parseInt(imageCount, 10);
+            if (isNaN(count) || count % 2 !== 0) {
+                errorDiv.textContent = 'Invalid value';
+                return false;
+            }
+
+            let row;
+            for (let i = 0; i < count; i++) {
+                if (i % 2 === 0) {
+                    row = imageTable.insertRow();
+                }
+                const cell = row.insertCell();
+                const img = document.createElement('img');
+                img.src = images[i];
+                cell.appendChild(img);
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
